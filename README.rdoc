@@ -1,6 +1,6 @@
 = k_means
 
-Description goes here.
+Attempting to build a memory efficient fast KMeans.
 
 == Note on Patches/Pull Requests
  
