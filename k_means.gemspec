@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{k_means}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["reddavis"]
@@ -23,7 +23,15 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "lib/k_means.rb"
+     "benchmark/benchmark.rb",
+     "k_means.gemspec",
+     "lib/basic_cache_store.rb",
+     "lib/ext/enumerable.rb",
+     "lib/k_means.rb",
+     "profiling/profile.rb",
+     "test/ext/test_enumerable.rb",
+     "test/helper.rb",
+     "test/test_k_means.rb"
   ]
   s.homepage = %q{http://github.com/reddavis/k_means}
   s.rdoc_options = ["--charset=UTF-8"]
