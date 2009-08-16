@@ -1,128 +1,67 @@
 $: << File.dirname(__FILE__)
-require 'rubygems'
-require 'basic_cache_store'
+require 'centroid'
+require 'node'
 require 'ext/enumerable'
+require 'ext/object'
 
 class KMeans
   
-  def initialize(k=4, options={})
-    @k = k
+  attr_reader :centroids, :nodes
+  
+  def initialize(data, options={})
+    k = options[:centroids] || 4
     @verbose = options[:verbose] == true ? true : nil
-    @last_matches = nil
+        
+    @nodes = Node.create_nodes(data)
+    @centroids = Centroid.create_centroids(k, @nodes)
+    
+    perform_cluster_process
   end
   
-  def clustify(data)
-    @data = data
-    place_centroids
-    perform_cluster_process
-    @best_matches
+  def inspect
+    centroid_pockets = Array.new(@centroids.size) {[]}
+    @centroids.each_with_index do |centroid, centroid_index|
+      @nodes.each_with_index do |node, node_index|
+        if node.closest_centroid == centroid
+          centroid_pockets[centroid_index] << node_index
+        end
+      end
+    end
+    centroid_pockets.inspect
   end
   
   private
   
-  def get_best_distance(data_index, centroid_index, data)
-    if cached_data = @cache.get("#{data_index}_#{centroid_index}")
-      cached_data
-    else
-      data.euclidean_distance(@centroids[centroid_index])
-    end
-  end
-  
-  def set_best_distance(data_index, centroid_index, data)
-    @cache.set("#{data_index}_#{centroid_index}", data.euclidean_distance(@centroids[centroid_index]))
-  end
-  
   def perform_cluster_process
-    100.times do |t|
-      verbose_message("Iteration #{t}")
-      
-      # Prepare best matches array
-      @best_matches = create_best_matches_array
-      # A little bit of caching
-      @cache = BasicCacheStore.new
-      
-      # See which centroid is closest to which data
-      @data.each_with_index do |data, index|
-        best_match = 0
-        
-        @k.times do |i|
-          # Calculate the distance between the centroid and the data
-          distance = data.euclidean_distance(@centroids[i])
-          # Check to see if our new distance is better than what we had before
-          if distance < get_best_distance(index, best_match, data)#data.euclidean_distance(@centroids[best_match])
-            best_match = i
-            set_best_distance(index, best_match, data)
-          end #if distance...
-        end #@k.times
-        @best_matches[best_match] << index
-      end #@data.each_with...
-      
-      # Stop the loop if centroids have stopped moving
-      break if @last_matches == @best_matches
-      @last_matches = @best_matches
-      
+    iterations = 0
+    updates = 1
+    while updates > 0 && iterations < 100 
+      iterations += 1
+      verbose_message("Iteration #{iterations}")
+      updates = 0  
+      updates += update_nodes
       reposition_centroids
     end
+#    puts @centroids.inspect
+#    puts @nodes.inspect
   end
   
-  # Move the centroids to the average of their surrounding data
+  def update_nodes
+    @nodes.inject(0) do |sum, node|
+      sum += node.update_closest_centroid(@centroids)
+    end
+  end
+  
   def reposition_centroids
-    @k.times do |i|
-      averages = [0.0] * @data[0].size # The average data
-      # Here we create an average of all the data in @best_matches[i]
-      # and then move the centroid (basically replacing the centroids own data with the average)
-      # i.e the data is the posistion of the element, if that makes sense?)
-      if @best_matches[i].size > 0 # Check the centroid has any matches
-        @best_matches[i].each do |data_index|
-          @data[data_index].each_with_index do |data, index| 
-            averages[index] += data
-          end
-        end 
+    @centroids.each do |centroid|
+      nodes = [] 
+      @nodes.each {|n| nodes << n if n.closest_centroid == centroid}
+      centroid.reposition(nodes)
+    end
+  end
         
-        # Calculate last part of the average
-        averages.each do |average|
-          average /= @best_matches[i].size
-        end
-        @centroids[i] = averages
-      end #if @best_matches
-      
-    end
-  end
-  
-  def place_centroids
-    @centroids = []
-    ranges = create_ranges
-    
-    @k.times do |i|
-      line_size = @data.first.size
-            
-      ranges.each do |range|
-        group = []
-        line_size.times do |n|
-          group << rand * (range[1] - range[0]) + range[0]
-        end
-        @centroids << group
-      end
-    end
-  end
-  
-  # Calculate the ranges for each points
-  def create_ranges
-    ranges = []
-    @data.each do |line|
-      ranges << [line.max, line.min]
-    end
-    ranges
-  end
-  
   def verbose_message(message)
     puts message if @verbose
   end
-  
-  def create_best_matches_array
-    array = []
-    @k.times { array << []}
-    array
-  end
-    
+      
 end

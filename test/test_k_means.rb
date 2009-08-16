@@ -4,25 +4,22 @@ class TestKMeans < Test::Unit::TestCase
   context "A KMeans Instance" do
     
     setup do
-      @kmeans = KMeans.new(4)
-      @data = Array.new(10) {Array.new(2) {rand}}
+      @data = Array.new(200) {Array.new(2) {rand}}
+#      @data = [[1,1], [1,2], [1,1], [10000, 10000]]
+      @kmeans = KMeans.new(@data, :centroids => 4)
     end
   
     should "return an array" do
-      assert_kind_of Array, @kmeans.clustify(@data)
+      assert_kind_of String, @kmeans.inspect
     end
     
     should "have 4 centroids" do
-      centroids = @kmeans.clustify(@data).size
-      assert_equal(4, centroids)
+      assert_equal 4, @kmeans.centroids.size
     end
     
-    should "return same amount of data that went in" do
-      output_data_count = @kmeans.clustify(@data).inject(0) do |sum, n|
-        sum += n.size
-      end
-      assert_equal(@data.size, output_data_count)
+    should "have 200 nodes" do
+      assert_equal 200, @kmeans.nodes.size
     end
-    
+        
   end
 end

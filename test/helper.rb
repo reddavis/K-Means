@@ -7,4 +7,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'k_means'
 
 class Test::Unit::TestCase
+  def assert_between(range, n)
+    assert range === n
+  end
 end
