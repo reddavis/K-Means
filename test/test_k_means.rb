@@ -5,8 +5,8 @@ class TestKMeans < Test::Unit::TestCase
     
     setup do
       @data = Array.new(200) {Array.new(2) {rand}}
-#      @data = [[1,1], [1,2], [1,1], [10000, 10000]]
-      @kmeans = KMeans.new(@data, :centroids => 4)
+#      @data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
+      @kmeans = KMeans.new(@data, :centroids => 2)
     end
   
     should "return an array" do

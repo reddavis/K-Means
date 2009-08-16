@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "k_means"
     gem.summary = %Q{K Means algorithm}
-    gem.description = %Q{Attempting to create a fast memory efficient KMeans}
+    gem.description = %Q{Attempting to create a fast, memory efficient KMeans}
     gem.email = "reddavis@gmail.com"
     gem.homepage = "http://github.com/reddavis/k_means"
     gem.authors = ["reddavis"]

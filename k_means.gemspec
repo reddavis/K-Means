@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{k_means}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["reddavis"]
-  s.date = %q{2009-08-15}
-  s.description = %q{Attempting to create a fast memory efficient KMeans}
+  s.date = %q{2009-08-17}
+  s.description = %q{Attempting to create a fast, memory efficient KMeans}
   s.email = %q{reddavis@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -25,13 +25,18 @@ Gem::Specification.new do |s|
      "VERSION",
      "benchmark/benchmark.rb",
      "k_means.gemspec",
-     "lib/basic_cache_store.rb",
+     "lib/centroid.rb",
      "lib/ext/enumerable.rb",
+     "lib/ext/object.rb",
      "lib/k_means.rb",
+     "lib/node.rb",
      "profiling/profile.rb",
      "test/ext/test_enumerable.rb",
+     "test/ext/test_object.rb",
      "test/helper.rb",
-     "test/test_k_means.rb"
+     "test/test_centroid.rb",
+     "test/test_k_means.rb",
+     "test/test_node.rb"
   ]
   s.homepage = %q{http://github.com/reddavis/k_means}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -40,8 +45,11 @@ Gem::Specification.new do |s|
   s.summary = %q{K Means algorithm}
   s.test_files = [
     "test/ext/test_enumerable.rb",
+     "test/ext/test_object.rb",
      "test/helper.rb",
-     "test/test_k_means.rb"
+     "test/test_centroid.rb",
+     "test/test_k_means.rb",
+     "test/test_node.rb"
   ]
 
   if s.respond_to? :specification_version then
