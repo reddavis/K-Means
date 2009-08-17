@@ -3,7 +3,7 @@ require 'rubygems'
 require 'ai4r'
 require File.dirname(__FILE__) + '/../lib/k_means'
 
-data = Array.new(1000) {Array.new(50) {rand(10)}}
+data = Array.new(100) {Array.new(50) {rand(10)}}
 
 ai4r_data = Ai4r::Data::DataSet.new(:data_items=> data)
 
