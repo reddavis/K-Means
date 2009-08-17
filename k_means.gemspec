@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "benchmark/benchmark.rb",
+     "benchmark/benchmark_ai4r.rb",
      "k_means.gemspec",
      "lib/centroid.rb",
      "lib/ext/enumerable.rb",
