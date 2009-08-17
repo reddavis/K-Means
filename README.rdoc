@@ -33,7 +33,11 @@ Attempting to build a fast, memory efficient K-Means program.
            user     system      total        real
   KMeans 15.960000   0.030000  15.990000 ( 16.062639)
   Ai4R   70.230000   0.180000  70.410000 ( 70.704843)
-  
+
+== Thanks
+
+* "David Richards":http://github.com/davidrichards - For his code reviews and all round helpfulness. 
+
 == Copyright
 
 Copyright (c) 2009 Red Davis. See LICENSE for details.
