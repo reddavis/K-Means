@@ -6,7 +6,7 @@ Attempting to build a fast, memory efficient K-Means program.
 
   data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
   kmeans = KMeans.new(@data, :centroids => 2)
-  kmeans.inspect
+  kmeans.inspect  # Use kmeans.view to get hold of the un-inspected array
   => [[3, 4], [0, 1, 2]]
   
 == Benchmarks
