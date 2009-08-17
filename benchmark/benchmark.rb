@@ -3,7 +3,7 @@ require 'rubygems'
 require 'ai4r'
 require File.dirname(__FILE__) + '/../lib/k_means'
 
-data = Array.new(200) {Array.new(50) {rand(10)}}
+data = Array.new(1000) {Array.new(50) {rand(10)}}
 
 ai4r_data = Ai4r::Data::DataSet.new(:data_items=> data)
 
@@ -16,7 +16,9 @@ Benchmark.bm do |x|
     n.times { KMeans.new(data) }
   end
   x.report("Ai4R") do
-    b = Ai4r::Clusterers::KMeans.new
-    n.times { b.build(ai4r_data, 4) }
+    n.times do
+      b = Ai4r::Clusterers::KMeans.new
+      b.build(ai4r_data, 4)
+    end
   end
 end

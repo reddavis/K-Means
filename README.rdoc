@@ -8,7 +8,32 @@ Attempting to build a fast, memory efficient K-Means program.
   kmeans = KMeans.new(@data, :centroids => 2)
   kmeans.inspect
   => [[3, 4], [0, 1, 2]]
+  
+== Benchmarks
 
+  # 1000 records with 50 dimensions
+  data = Array.new(1000) {Array.new(50) {rand(10)}} 
+  ai4r_data = Ai4r::Data::DataSet.new(:data_items=> data)
+
+  # Clustering can happen in magical ways
+  # so lets do it over multiple times
+  n = 5
+
+  Benchmark.bm do |x|
+    x.report('KMeans') do
+      n.times { KMeans.new(data) }
+    end
+    x.report("Ai4R") do
+      n.times do
+        b = Ai4r::Clusterers::KMeans.new
+        b.build(ai4r_data, 4)
+      end
+    end
+  end
+           user     system      total        real
+  KMeans 15.960000   0.030000  15.990000 ( 16.062639)
+  Ai4R   70.230000   0.180000  70.410000 ( 70.704843)
+  
 == Copyright
 
 Copyright (c) 2009 Red Davis. See LICENSE for details.
