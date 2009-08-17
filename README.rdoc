@@ -4,8 +4,8 @@ Attempting to build a fast, memory efficient K-Means program.
 
 == How To Use
 
-  data = [[1,1], [1,2], [1,1], [10000, 10000], [250, 250]]
-  kmeans = KMeans.new(@data, :centroids => 4)
+  data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
+  kmeans = KMeans.new(@data, :centroids => 2)
   kmeans.inspect
   => [[3, 4], [0, 1, 2]]
 
