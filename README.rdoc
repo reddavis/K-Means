@@ -36,7 +36,7 @@ Attempting to build a fast, memory efficient K-Means program.
 
 == Thanks
 
-* "David Richards":http://github.com/davidrichards - For his code reviews and all round helpfulness. 
+* David Richards - For his code reviews and all round helpfulness. - http://github.com/davidrichards
 
 == Copyright
 
