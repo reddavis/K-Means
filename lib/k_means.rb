@@ -19,15 +19,11 @@ class KMeans
   end
   
   def inspect
-    centroid_pockets = Array.new(@centroids.size) {[]}
-    @centroids.each_with_index do |centroid, centroid_index|
-      @nodes.each_with_index do |node, node_index|
-        if node.closest_centroid == centroid
-          centroid_pockets[centroid_index] << node_index
-        end
-      end
-    end
-    centroid_pockets.inspect
+    @centroid_pockets.inspect
+  end
+  
+  def view
+    @centroid_pockets
   end
   
   private
@@ -42,10 +38,24 @@ class KMeans
       updates += update_nodes
       reposition_centroids
     end
-#    puts @centroids.inspect
-#    puts @nodes.inspect
+    place_nodes_into_pockets
   end
   
+  # This creates an array of arrays
+  # Each internal array represents a centroid
+  # and each in the array represents the nodes index
+  def place_nodes_into_pockets
+    centroid_pockets = Array.new(@centroids.size) {[]}
+    @centroids.each_with_index do |centroid, centroid_index|
+      @nodes.each_with_index do |node, node_index|
+        if node.closest_centroid == centroid
+          centroid_pockets[centroid_index] << node_index
+        end
+      end
+    end
+    @centroid_pockets = centroid_pockets
+  end
+    
   def update_nodes
     @nodes.inject(0) do |sum, node|
       sum += node.update_closest_centroid(@centroids)

@@ -12,8 +12,8 @@ class TestKMeans < Test::Unit::TestCase
       assert_kind_of String, @kmeans.inspect
     end
     
-    should "have 4 centroids" do
-      assert_equal 4, @kmeans.centroids.size
+    should "have 2 centroids" do
+      assert_equal 2, @kmeans.centroids.size
     end
     
     should "have 200 nodes" do
