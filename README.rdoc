@@ -2,8 +2,15 @@
 
 Attempting to build a fast, memory efficient K-Means program.
 
-== How To Use
+== Install
 
+  gem sources -a http://gems.github.com
+  sudo gem install reddavis-k_means
+
+== How To Use
+  require 'rubygems'
+  require 'k_means'
+  
   data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
   kmeans = KMeans.new(@data, :centroids => 2)
   kmeans.inspect  # Use kmeans.view to get hold of the un-inspected array
