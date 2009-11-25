@@ -8,5 +8,5 @@ result = RubyProf.profile do
   a = KMeans.new(data)
 end
 
-printer = RubyProf::GraphPrinter.new(result)
+printer = RubyProf::FlatPrinter.new(result)
 printer.print(STDOUT, 0)

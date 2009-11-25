@@ -2,7 +2,11 @@ class Node
   
   class << self
     def create_nodes(data)
-      data.inject([]) {|array, position| array << new(position)}
+      nodes = []
+      data.each do |position|
+        nodes << new(position)
+      end
+      nodes
     end
   end
   

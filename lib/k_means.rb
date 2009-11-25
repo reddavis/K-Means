@@ -29,8 +29,7 @@ class KMeans
   private
   
   def perform_cluster_process
-    iterations = 0
-    updates = 1
+    iterations, updates = 0, 1
     while updates > 0 && iterations < 100 
       iterations += 1
       verbose_message("Iteration #{iterations}")
@@ -57,9 +56,11 @@ class KMeans
   end
     
   def update_nodes
-    @nodes.inject(0) do |sum, node|
+    sum = 0
+    @nodes.each do |node|
       sum += node.update_closest_centroid(@centroids)
     end
+    sum
   end
   
   def reposition_centroids
