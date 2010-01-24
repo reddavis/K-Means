@@ -10,9 +10,10 @@ class KMeans
   
   def initialize(data, options={})
     k = options[:centroids] || 4
-    @verbose = options[:verbose] == true ? true : nil
-        
-    @nodes = Node.create_nodes(data)
+    @verbose = options[:verbose]
+    
+    similarity_measure = options[:similarity_measure] || :euclidean
+    @nodes = Node.create_nodes(data, similarity_measure)
     @centroids = Centroid.create_centroids(k, @nodes)
     
     perform_cluster_process

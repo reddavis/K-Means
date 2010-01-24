@@ -5,7 +5,7 @@ class TestKMeans < Test::Unit::TestCase
     
     setup do
       @data = Array.new(200) {Array.new(2) {rand}}
-      @kmeans = KMeans.new(@data, :centroids => 2)
+      @kmeans = KMeans.new(@data, :centroids => 2, :similarity_measure => :cosine)
     end
   
     should "return an array" do

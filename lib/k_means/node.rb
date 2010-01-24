@@ -1,10 +1,10 @@
 class Node
   
   class << self
-    def create_nodes(data)
+    def create_nodes(data, similarity_measure)
       nodes = []
       data.each do |position|
-        nodes << new(position)
+        nodes << new(position, similarity_measure)
       end
       nodes
     end
@@ -12,8 +12,9 @@ class Node
   
   attr_accessor :position, :best_distance, :closest_centroid
   
-  def initialize(position)
+  def initialize(position, similarity_measure)
     @position = position
+    @similarity_measure = validate_similarity_measure(similarity_measure)
   end
   
   def update_closest_centroid(centroids)
@@ -38,7 +39,20 @@ class Node
   end
   
   def calculate_distance(centroid)
-    @position.euclidean_distance(centroid.position)
+    case @similarity_measure
+    when :euclidean
+      @position.euclidean_distance(centroid.position)
+    when :cosine
+      @position.cosine_similarity(centroid.position)
+    end
+  end
+  
+  def validate_similarity_measure(similarity_measure)
+    supported_measure = [:euclidean, :cosine]
+    if !supported_measure.include?(similarity_measure)
+      raise "Hey! You have specified an unsupported similarity measure."
+    end
+    similarity_measure
   end
   
 end
