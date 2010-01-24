@@ -1,3 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/k_means/k_means')
-require File.expand_path(File.dirname(__FILE__) + '/k_means/centroid')
-require File.expand_path(File.dirname(__FILE__) + '/k_means/node')
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+
+require 'k_means/k_means'
+require 'k_means/centroid'
+require 'k_means/node'

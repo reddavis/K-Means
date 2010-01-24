@@ -1,4 +1,3 @@
-$: << File.dirname(__FILE__)
 require 'centroid'
 require 'node'
 require 'ext/array'
