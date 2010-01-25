@@ -1,6 +1,5 @@
 require 'centroid'
 require 'node'
-require 'ext/array'
 require 'ext/object'
 
 class KMeans
@@ -11,7 +10,7 @@ class KMeans
     k = options[:centroids] || 4
     @verbose = options[:verbose]
     
-    similarity_measure = options[:similarity_measure] || :euclidean
+    similarity_measure = options[:similarity_measure] || :euclidean_distance
     @nodes = Node.create_nodes(data, similarity_measure)
     @centroids = Centroid.create_centroids(k, @nodes)
     

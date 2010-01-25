@@ -14,7 +14,7 @@ class Node
   
   def initialize(position, similarity_measure)
     @position = position
-    @similarity_measure = validate_similarity_measure(similarity_measure)
+    @similarity_measure = similarity_measure
   end
   
   def update_closest_centroid(centroids)
@@ -39,20 +39,11 @@ class Node
   end
   
   def calculate_distance(centroid)
-    case @similarity_measure
-    when :euclidean
-      @position.euclidean_distance(centroid.position)
-    when :cosine
-      @position.cosine_similarity(centroid.position)
+    begin
+      @position.send(@similarity_measure, centroid.position)
+    rescue NoMethodError
+      raise "Hey, that's not a measurement. Read the REAdME for available measurements"
     end
-  end
-  
-  def validate_similarity_measure(similarity_measure)
-    supported_measure = [:euclidean, :cosine]
-    if !supported_measure.include?(similarity_measure)
-      raise "Hey! You have specified an unsupported similarity measure."
-    end
-    similarity_measure
   end
   
 end
