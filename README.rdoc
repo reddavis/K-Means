@@ -16,6 +16,34 @@ Attempting to build a fast, memory efficient K-Means program.
   kmeans.inspect  # Use kmeans.view to get hold of the un-inspected array
   => [[3, 4], [0, 1, 2]]
   
+== Distance Measurements
+
+KMeans uses the Distance Measures Gem (http://github.com/reddavis/Distance-Measures) so we get quite a range of distance measurements.
+
+The measurements currently available are:
+
+  euclidean_distance
+
+  cosine_similarity
+
+  jaccard_index
+
+  jaccard_distance
+
+  binary_jaccard_index
+
+  binary_jaccard_distance
+
+  tanimoto_coefficient
+  
+To specify a particular one to use in the KMeans algorithm, just provide it as an option:
+
+  KMeans.new(@data, :similarity_measure => :jaccard_index)
+  KMeans.new(@data, :similarity_measure => :cosine_similarity)
+  KMeans.new(@data, :similarity_measure => :tanimoto_coefficient)
+  
+You get the idea...
+  
 == Benchmarks
 
   # 1000 records with 50 dimensions

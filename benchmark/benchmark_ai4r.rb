@@ -3,13 +3,13 @@ require 'rubygems'
 require 'ai4r'
 require File.dirname(__FILE__) + '/../lib/k_means'
 
-data = Array.new(500) {Array.new(50) {rand(10)}}
+data = Array.new(1000) {Array.new(50) {rand(10)}} 
 
 ai4r_data = Ai4r::Data::DataSet.new(:data_items=> data)
 
 # Clustering can happen in magical ways
 # so lets do it over multiple times
-n = 20
+n = 5
 
 
 Benchmark.bm do |x|
