@@ -40,6 +40,6 @@ class TestCentroid < Test::Unit::TestCase
   private
   
   def create_nodes
-    Node.create_nodes([[1,2,3], [4,5,6]], :euclidean)
+    Node.create_nodes([[1,2,3], [4,5,6]], :euclidean_distance)
   end
 end

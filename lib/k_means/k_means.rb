@@ -8,8 +8,8 @@ class KMeans
     k = options[:centroids] || 4
     @verbose = options[:verbose]
     
-    similarity_measure = options[:similarity_measure] || :euclidean_distance
-    @nodes = Node.create_nodes(data, similarity_measure)
+    distance_measure = options[:distance_measure] || :euclidean_distance
+    @nodes = Node.create_nodes(data, distance_measure)
     @centroids = Centroid.create_centroids(k, @nodes)
     
     perform_cluster_process

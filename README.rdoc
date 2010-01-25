@@ -38,9 +38,9 @@ The measurements currently available are:
   
 To specify a particular one to use in the KMeans algorithm, just provide it as an option:
 
-  KMeans.new(@data, :similarity_measure => :jaccard_index)
-  KMeans.new(@data, :similarity_measure => :cosine_similarity)
-  KMeans.new(@data, :similarity_measure => :tanimoto_coefficient)
+  KMeans.new(@data, :distance_measure => :jaccard_index)
+  KMeans.new(@data, :distance_measure => :cosine_similarity)
+  KMeans.new(@data, :distance_measure => :tanimoto_coefficient)
   
 You get the idea...
   
