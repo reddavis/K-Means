@@ -1,5 +1,3 @@
-require 'centroid'
-require 'node'
 require 'ext/object'
 
 class KMeans
