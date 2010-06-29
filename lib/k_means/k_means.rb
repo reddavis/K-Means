@@ -5,12 +5,11 @@ class KMeans
   attr_reader :centroids, :nodes
   
   def initialize(data, options={})
-    k = options[:centroids] || 4
-    @verbose = options[:verbose]
-    
     distance_measure = options[:distance_measure] || :euclidean_distance
     @nodes = Node.create_nodes(data, distance_measure)
-    @centroids = Centroid.create_centroids(k, @nodes)
+    @centroids = options[:centroid_positions] ||
+      Centroid.create_centroids(options[:centroids] || 4, @nodes)
+    @verbose = options[:verbose]
     
     perform_cluster_process
   end
