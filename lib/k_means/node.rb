@@ -42,7 +42,7 @@ class Node
     begin
       @position.send(@similarity_measure, centroid.position)
     rescue NoMethodError
-      raise "Hey, that's not a measurement. Read the REAdME for available measurements"
+      raise "Hey, '#{@similarity_measure}' is not a measurement. Read the REAdME for available measurements"
     end
   end
   
