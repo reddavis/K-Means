@@ -18,7 +18,7 @@ class Node
   end
   
   def update_closest_centroid(centroids)
-    calculate_initial_centroid(centroids.first) unless @closest_centroid
+    calculate_initial_centroid(centroids.first)
     updated = false
     centroids.each do |centroid|
       distance = calculate_distance(centroid)

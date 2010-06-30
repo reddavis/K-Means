@@ -39,6 +39,18 @@ class TestNode < Test::Unit::TestCase
       assert_not_equal a, @node.closest_centroid
       assert_equal 0, @node.best_distance
     end
+
+    context "when the new closest centroid is farthest away than the one from previous interation" do
+      should "update closest centroid" do
+        centroids = [Centroid.new([4, 4])]
+        @node.update_closest_centroid(centroids)
+        a = @node.closest_centroid
+        @node.update_closest_centroid([Centroid.new([5,4])])
+        
+        assert_not_equal a, @node.closest_centroid
+        assert_equal 1, @node.best_distance
+      end
+    end
     
     should "raise error if a false measure is specified" do
       assert_raise NoMethodError do
