@@ -35,7 +35,7 @@ class Centroid
   
   # Finds the average distance of all the nodes assigned to
   # the centroid and then moves the centroid to that position
-  def reposition(nodes)
+  def reposition(nodes, centroids)
     return if nodes.empty?
     averages = [0.0] * nodes[0].position.size
     nodes.each do |node|

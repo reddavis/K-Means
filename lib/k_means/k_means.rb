@@ -60,10 +60,11 @@ class KMeans
   end
   
   def reposition_centroids
+    centroid_positions = @centroids.map(&:position)
     @centroids.each do |centroid|
       nodes = [] 
       @nodes.each {|n| nodes << n if n.closest_centroid == centroid}
-      centroid.reposition(nodes)
+      centroid.reposition(nodes, centroid_positions)
     end
   end
         

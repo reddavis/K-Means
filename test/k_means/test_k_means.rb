@@ -28,7 +28,7 @@ class TestKMeans < Test::Unit::TestCase
       class CustomCentroid
         attr_accessor :position
         def initialize(position); @position = position; end
-        def reposition(nodes); end
+        def reposition(nodes, centroid_positions); end
       end
 
       @specified_centroids = @data[0..2].map { |d| CustomCentroid.new(d) }

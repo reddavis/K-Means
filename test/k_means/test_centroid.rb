@@ -31,7 +31,7 @@ class TestCentroid < Test::Unit::TestCase
         end
       end
       average_position.map! {|x| x / 2}
-      @centroid.reposition(create_nodes)
+      @centroid.reposition(create_nodes, [@centroid.position])
       assert_equal average_position, @centroid.position
     end
       
