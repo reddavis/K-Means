@@ -21,6 +21,12 @@ class Node
     calculate_initial_centroid(centroids.first)
     updated = false
     centroids.each do |centroid|
+      if centroid.position == @position
+        updated = true
+        @closest_centroid = centroid
+        @best_distance = 0
+        break
+      end
       distance = calculate_distance(centroid)
       if distance < best_distance
         updated = true
