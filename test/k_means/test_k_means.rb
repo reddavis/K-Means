@@ -35,7 +35,7 @@ class TestKMeans < Test::Unit::TestCase
       @kmeans = KMeans.new(@data, :centroid_positions => @specified_centroids, :distance_measure => :cosine_similarity)
     end
 
-    should "return an array" do
+    should "return an inspected array" do
       assert_kind_of String, @kmeans.inspect
     end
 
