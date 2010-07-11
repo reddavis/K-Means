@@ -27,8 +27,11 @@ Attempting to build a fast, memory efficient K-Means program.
     def reposition(nodes, centroid_positions); end
   end
 
+  custom_centroids = []
+  2.times { custom_centroids << CustomCentroid.new([1,1]) }
+
   data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
-  kmeans = KMeans.new(data, :custom_centroids => @specified_centroids)
+  kmeans = KMeans.new(data, :custom_centroids => custom_centroids)
 
 == Distance Measurements
 
