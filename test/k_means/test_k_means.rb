@@ -32,7 +32,7 @@ class TestKMeans < Test::Unit::TestCase
       end
 
       @specified_centroids = @data[0..2].map { |d| CustomCentroid.new(d) }
-      @kmeans = KMeans.new(@data, :centroid_positions => @specified_centroids, :distance_measure => :cosine_similarity)
+      @kmeans = KMeans.new(@data, :custom_centroids => @specified_centroids, :distance_measure => :cosine_similarity)
     end
 
     should "return an inspected array" do

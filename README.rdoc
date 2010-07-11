@@ -11,10 +11,24 @@ Attempting to build a fast, memory efficient K-Means program.
   require 'rubygems'
   require 'k_means'
 
-  @data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
-  kmeans = KMeans.new(@data, :centroids => 2)
+  data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
+  kmeans = KMeans.new(data, :centroids => 2)
   kmeans.inspect  # Use kmeans.view to get hold of the un-inspected array
   => [[3, 4], [0, 1, 2]]
+
+== Custom Centroids
+  require 'rubygems'
+  require 'k_means'
+
+  # Your custom centroid needs to have #position and #reposition methods
+  class CustomCentroid
+    attr_accessor :position
+    def initialize(position); @position = position; end
+    def reposition(nodes, centroid_positions); end
+  end
+
+  data = [[1,1], [1,2], [1,1], [1000, 1000], [500, 500]]
+  kmeans = KMeans.new(data, :custom_centroids => @specified_centroids)
 
 == Distance Measurements
 
