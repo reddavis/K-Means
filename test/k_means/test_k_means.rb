@@ -24,7 +24,7 @@ class TestKMeans < Test::Unit::TestCase
 
   context "A KMeans Instance with specified initial centroids" do
     setup do
-      @data = Array.new(200) {Array.new(2) {rand}}
+      @data = Array.new(3) {Array.new(2) {rand}}
       class CustomCentroid
         attr_accessor :position
         def initialize(position); @position = position; end
@@ -43,8 +43,8 @@ class TestKMeans < Test::Unit::TestCase
       assert_equal 3, @kmeans.centroids.size
    end
 
-    should "have 200 nodes" do
-      assert_equal 200, @kmeans.nodes.size
+    should "have 3 nodes" do
+      assert_equal 3, @kmeans.nodes.size
     end
   end
 end
