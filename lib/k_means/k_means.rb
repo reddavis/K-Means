@@ -2,7 +2,7 @@ require 'ext/object'
 
 class KMeans
 
-  attr_reader :centroids, :nodes
+  attr_reader :centroids, :nodes, :max_iterations
 
   def initialize(data, options={})
     distance_measure = options[:distance_measure] || :euclidean_distance
@@ -10,6 +10,7 @@ class KMeans
     @centroids = options[:custom_centroids] ||
       Centroid.create_centroids(options[:centroids] || 4, @nodes)
     @verbose = options[:verbose]
+    @max_iterations = options[:max_iterations] || 100
 
     perform_cluster_process
   end
@@ -26,7 +27,7 @@ class KMeans
 
   def perform_cluster_process
     iterations, updates = 0, 1
-    while updates > 0 && iterations < 100
+    while updates > 0 && iterations < max_iterations
       iterations += 1
       verbose_message("Iteration #{iterations}")
       updates = 0
