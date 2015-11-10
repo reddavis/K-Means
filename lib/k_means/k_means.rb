@@ -23,6 +23,26 @@ class KMeans
     @centroid_pockets
   end
 
+  # Davies–Bouldin index: http://en.wikipedia.org/wiki/Cluster_analysis#Evaluation_of_clustering
+  def davies_bouldin_index(centroids = @centroids)
+    c_sz = centroids.size
+    db_index = 0
+    0..csz.each do |i|
+      max_db_index = -1.0/0
+      0..csz.each do |j|
+        if i != j
+          centroid_dist = centroids[i].position.send(@distance_measure, centroids[j].position)
+          sum_mean_nodes = centroids[i].mean_node_distance + centroids[j].mean_node_distance
+          max_db_index = [max_db_index, sum_mean_nodes / centroid_dist].max
+        end
+      end
+      db_index += max_db_index
+    end
+    return db_index/c_sz
+  end
+
+
+
   private
 
   def perform_cluster_process
@@ -58,24 +78,6 @@ class KMeans
       sum += node.update_closest_centroid(@centroids)
     end
     sum
-  end
-
-  # Davies–Bouldin index: http://en.wikipedia.org/wiki/Cluster_analysis#Evaluation_of_clustering
-  def davies_bouldin_index(centroids = @centroids)
-    c_sz = centroids.size
-    db_index = 0
-    0..csz.each do |i|
-      max_db_index = -1.0/0
-      0..csz.each do |j|
-        if i != j
-          centroid_dist = centroids[i].position.send(@distance_measure, centroids[j].position)
-          sum_mean_nodes = centroids[i].mean_node_distance + centroids[j].mean_node_distance
-          max_db_index = [max_db_index, sum_mean_nodes / centroid_dist].max
-        end
-      end
-      db_index += max_db_index
-    end
-    return db_index/c_sz
   end
 
   def reposition_centroids
