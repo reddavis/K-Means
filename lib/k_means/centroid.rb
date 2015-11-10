@@ -22,9 +22,9 @@ class Centroid
       nodes.each do |node|
         node.position.each_with_index do |position, index|
           # Bottom range
-          ranges[index][0] = position if ranges[index][0].nan? || position < ranges[index][0]
+          ranges[index][0] = position if ranges[index][0].to_f.nan? || position < ranges[index][0]
           # Top range
-          ranges[index][1] = position if ranges[index][1].nan? || position > ranges[index][1]
+          ranges[index][1] = position if ranges[index][1].to_f.nan? || position > ranges[index][1]
         end
       end
       ranges
