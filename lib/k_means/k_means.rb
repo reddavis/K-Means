@@ -5,8 +5,8 @@ class KMeans
   attr_reader :centroids, :nodes, :max_iterations
 
   def initialize(data, options={})
-    distance_measure = options[:distance_measure] || :euclidean_distance
-    @nodes = Node.create_nodes(data, distance_measure)
+    @distance_measure = options[:distance_measure] || :euclidean_distance
+    @nodes = Node.create_nodes(data, @distance_measure)
     @centroids = options[:custom_centroids] ||
       Centroid.create_centroids(options[:centroids] || 4, @nodes)
     @verbose = options[:verbose]
@@ -58,6 +58,24 @@ class KMeans
       sum += node.update_closest_centroid(@centroids)
     end
     sum
+  end
+
+  # Davies–Bouldin index: http://en.wikipedia.org/wiki/Cluster_analysis#Evaluation_of_clustering
+  def davies_bouldin_index(centroids = @centroids)
+    c_sz = centroids.size
+    db_index = 0
+    0..csz.each do |i|
+      max_db_index = -1.0/0
+      0..csz.each do |j|
+        if i != j
+          centroid_dist = centroids[i].position.send(@distance_measure, centroids[j].position)
+          sum_mean_nodes = centroids[i].mean_node_distance + centroids[j].mean_node_distance
+          max_db_index = [max_db_index, sum_mean_nodes / centroid_dist].max
+        end
+      end
+      db_index += max_db_index
+    end
+    return db_index/c_sz
   end
 
   def reposition_centroids

@@ -1,7 +1,7 @@
 class Centroid
-  
+
   class << self
-  
+
     # initial centroid positions are randomly chosen from within
     # a bounding box that encloses all the nodes
     def create_centroids(amount, nodes)
@@ -13,10 +13,10 @@ class Centroid
         new(position)
       end
     end
-    
+
     private
-    
-    # find centroid ranges as a bounding box for all nodes
+
+    # find centroi  d ranges as a bounding box for all nodes
     def create_ranges(nodes, dimensions)
       ranges = Array.new(dimensions) {[Float::NAN, Float::NAN]}
       nodes.each do |node|
@@ -30,13 +30,33 @@ class Centroid
       ranges
     end
   end
-  
+
   attr_accessor :position
-  
+
   def initialize(position)
     @position = position
+    @mean_distance = nil
   end
-  
+
+  def mean_node_distance
+
+    return @mean_distance if @mean_distance
+
+    total_dist = 0.0
+    total_nodes = @nodes.size
+
+    total_dist.reduce(0){|sum, node| sum + node.best_distance}
+
+    if total_nodes > 0
+      @mean_distance = total_dist/total_nodes
+    else
+      # if there no nodes in cluster, so the centroid is bad
+      @mean_distance = 1.0/0.0
+    end
+
+    @mean_distance
+  end
+
   # Finds the average distance of all the nodes assigned to
   # the centroid and then moves the centroid to that position
   def reposition(nodes, centroids)
@@ -49,5 +69,5 @@ class Centroid
     end
     @position = averages.map {|x| x / nodes.size}
   end
-  
+
 end
