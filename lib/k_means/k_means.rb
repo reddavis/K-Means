@@ -68,6 +68,8 @@ class KMeans
       @nodes.each_with_index do |node, node_index|
         if node.closest_centroid == centroid
           centroid_pockets[centroid_index] << node_index
+          #Store closest nodes in the centroid object
+          centroid.nodes << node
         end
       end
     end

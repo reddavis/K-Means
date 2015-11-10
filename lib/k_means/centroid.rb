@@ -66,8 +66,6 @@ class Centroid
     nodes.each do |node|
       node.position.each_with_index do |position, index|
         averages[index] += position
-        #Store closest nodes in the centroid object
-        centroid.nodes << node
       end
     end
     @position = averages.map {|x| x / nodes.size}
