@@ -27,9 +27,9 @@ class KMeans
   def davies_bouldin_index(centroids = @centroids)
     c_sz = centroids.size
     db_index = 0
-    (0..c_sz).each do |i|
+    (0..(c_sz - 1)).each do |i|
       max_db_index = -1.0/0
-      (0..c_sz).each do |j|
+      (0..(c_sz - 1)).each do |j|
         if i != j
           centroid_dist = centroids[i].position.send(@distance_measure, centroids[j].position)
           sum_mean_nodes = centroids[i].mean_node_distance + centroids[j].mean_node_distance
