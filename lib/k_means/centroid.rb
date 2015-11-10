@@ -46,7 +46,7 @@ class Centroid
     total_dist = 0.0
     total_nodes = @nodes.size
 
-    @nodes.reduce(0){|sum, node| sum + node.best_distance}
+    total_dist = @nodes.reduce(0){|sum, node| sum + node.best_distance}
 
     if total_nodes > 0
       @mean_distance = total_dist/total_nodes
