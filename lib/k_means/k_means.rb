@@ -41,7 +41,9 @@ class KMeans
     return db_index/c_sz
   end
 
-
+  def reset_nodes!
+    @nodes.each{|n| n.reset!}
+  end
 
   private
 

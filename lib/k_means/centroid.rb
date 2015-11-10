@@ -31,11 +31,12 @@ class Centroid
     end
   end
 
-  attr_accessor :position
+  attr_accessor :position, :nodes
 
   def initialize(position)
     @position = position
     @mean_distance = nil
+    @nodes = []
   end
 
   def mean_node_distance
@@ -65,6 +66,8 @@ class Centroid
     nodes.each do |node|
       node.position.each_with_index do |position, index|
         averages[index] += position
+        #Store closest nodes in the centroid object
+        centroid.nodes << node
       end
     end
     @position = averages.map {|x| x / nodes.size}
