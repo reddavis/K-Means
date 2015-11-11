@@ -2,17 +2,33 @@ require 'ext/object'
 
 class KMeans
 
-  attr_reader :centroids, :nodes, :max_iterations
+  attr_reader :centroids, :nodes, :max_iterations, :max_tries
 
   def initialize(data, options={})
-    @distance_measure = options[:distance_measure] || :euclidean_distance
-    @nodes = Node.create_nodes(data, @distance_measure)
-    @centroids = options[:custom_centroids] ||
-      Centroid.create_centroids(options[:centroids] || 4, @nodes)
-    @verbose = options[:verbose]
-    @max_iterations = options[:max_iterations] || 100
 
-    perform_cluster_process
+    @max_tries = options[:max_tries] || 10
+
+    @best_DBI = Float::INFINITY
+    @best_centriods = nil
+
+    @max_tries.times do ||    
+      @distance_measure = options[:distance_measure] || :euclidean_distance
+      @nodes = Node.create_nodes(data, @distance_measure)
+      @centroids = options[:custom_centroids] ||
+        Centroid.create_centroids(options[:centroids] || 4, @nodes)
+      @verbose = options[:verbose]
+      @max_iterations = options[:max_iterations] || 100
+      perform_cluster_process
+      dbi = davies_bouldin_index
+      if dbi < @best_DBI
+        @best_DBI = dbi
+        @best_centriods = @centroids
+      end
+    end
+
+    @centroid = @best_centriods
+    place_nodes_into_pockets
+
   end
 
   def inspect
