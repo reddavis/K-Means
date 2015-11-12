@@ -17,10 +17,10 @@ class Node
     @similarity_measure = similarity_measure
   end
 
-  def update_closest_centroid(centroids)
+  def update_closest_centroid(centroids, force = false)
     # If we haven't processed this node we need to give it an initial centroid
     # so that we have something to compare distances against
-    calculate_initial_centroid(centroids.first) unless @closest_centroid
+    calculate_initial_centroid(centroids.first) if (!@closest_centroid || force)  
 
     updated = false
     centroids.each do |centroid|
@@ -60,7 +60,7 @@ class Node
     begin
       @position.send(@similarity_measure, centroid.position)
     rescue NoMethodError
-      raise "Hey, '#{@similarity_measure}' is not a measurement. Read the REAdME for available measurements"
+      raise "Hey, '#{@similarity_measure}' is not a measurement. Read the README for available measurements"
     end
   end
 

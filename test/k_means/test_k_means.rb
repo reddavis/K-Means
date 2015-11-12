@@ -8,8 +8,6 @@ class TestKMeans < Test::Unit::TestCase
     setup do
       @data = Array.new(3) {Array.new(2) {rand}}
       @kmeans = KMeans.new(@data, :centroids => 2, :distance_measure => :cosine_similarity)
-      @kmeans2 = KMeans.new(data, :centroids => 2, :distance_measure => :euclidean_distance)
-      @kmeans3 = KMeans.new(data, :centroids => 3, :distance_measure => :euclidean_distance)
     end
 
     should "return an array" do
@@ -22,6 +20,15 @@ class TestKMeans < Test::Unit::TestCase
 
     should "have 200 nodes" do
       assert_equal 3, @kmeans.nodes.size
+    end
+
+
+  end
+
+  context "A Many tries" do
+    setup do
+      @kmeans2 = KMeans.new(data, :centroids => 2, :distance_measure => :euclidean_distance, :max_tries => 50)
+      @kmeans3 = KMeans.new(data, :centroids => 3, :distance_measure => :euclidean_distance, :max_tries => 50)
     end
 
     should "DBI of 3 clusters less than 2 clusters" do
