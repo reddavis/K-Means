@@ -1,7 +1,7 @@
 class Centroid
-
+  
   class << self
-
+  
     # initial centroid positions are randomly chosen from within
     # a bounding box that encloses all the nodes
     def create_centroids(amount, nodes)
@@ -13,18 +13,18 @@ class Centroid
         new(position)
       end
     end
-
+    
     private
-
-    # find centroi  d ranges as a bounding box for all nodes
+    
+    # find centroid ranges as a bounding box for all nodes
     def create_ranges(nodes, dimensions)
       ranges = Array.new(dimensions) {[Float::NAN, Float::NAN]}
       nodes.each do |node|
         node.position.each_with_index do |position, index|
           # Bottom range
-          ranges[index][0] = position if ranges[index][0].to_f.nan? || position < ranges[index][0]
+          ranges[index][0] = position if ranges[index][0].nan? || position < ranges[index][0]
           # Top range
-          ranges[index][1] = position if ranges[index][1].to_f.nan? || position > ranges[index][1]
+          ranges[index][1] = position if ranges[index][1].nan? || position > ranges[index][1]
         end
       end
       ranges
@@ -70,5 +70,5 @@ class Centroid
     end
     @position = averages.map {|x| x / nodes.size}
   end
-
+  
 end
