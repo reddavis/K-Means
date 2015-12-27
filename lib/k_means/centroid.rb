@@ -30,13 +30,34 @@ class Centroid
       ranges
     end
   end
-  
-  attr_accessor :position
-  
+
+  attr_accessor :position, :nodes
+
   def initialize(position)
     @position = position
+    @mean_distance = nil
+    @nodes = []
   end
-  
+
+  def mean_node_distance
+
+    return @mean_distance if @mean_distance
+
+    total_dist = 0.0
+    total_nodes = @nodes.size
+
+    total_dist = @nodes.reduce(0){|sum, node| sum + node.best_distance}
+
+    if total_nodes > 0
+      @mean_distance = total_dist/total_nodes
+    else
+      # if there no nodes in cluster, so the centroid is bad
+      @mean_distance = 1.0/0.0
+    end
+
+    @mean_distance
+  end
+
   # Finds the average distance of all the nodes assigned to
   # the centroid and then moves the centroid to that position
   def reposition(nodes, centroids)
